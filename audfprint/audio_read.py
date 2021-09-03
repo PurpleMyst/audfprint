@@ -29,7 +29,6 @@ import numpy as np
 # For wavread fallback.
 import scipy.io.wavfile as wav
 
-
 try:
     import queue
 except ImportError:

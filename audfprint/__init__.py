@@ -1,2 +1,2 @@
 # coding=utf-8
-from audfprint import *
+from .audfprint import *

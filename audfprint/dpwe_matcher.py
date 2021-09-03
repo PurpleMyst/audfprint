@@ -31,7 +31,7 @@ from __future__ import print_function
 import os
 import sys
 
-import audfprint
+from . import audfprint
 
 try:
     # noinspection PyCompatibility
@@ -57,15 +57,17 @@ else:
         resultFile = sys.argv[3]
 
 # Default params
-defaults = {'density': "70",
-            'fanout': "8",
-            'search_depth': "2000",
-            'min_count': "5",
-            'ncores': "8"}
+defaults = {
+    "density": "70",
+    "fanout": "8",
+    "search_depth": "2000",
+    "min_count": "5",
+    "ncores": "8",
+}
 
 # Parse input file
 config = ConfigParser(defaults)
-section = 'dpwe_matcher'
+section = "dpwe_matcher"
 
 config.add_section(section)
 
@@ -73,27 +75,49 @@ if config_file:
     if len(config.read(config_file)) == 0:
         raise IOError(errno.ENOENT, "Cannot read config file", config_file)
 
-density = config.getint(section, 'density')
-fanout = config.getint(section, 'fanout')
-search_depth = config.getint(section, 'search_depth')
-min_count = config.getint(section, 'min_count')
-ncores = config.getint(section, 'ncores')
+density = config.getint(section, "density")
+fanout = config.getint(section, "fanout")
+search_depth = config.getint(section, "search_depth")
+min_count = config.getint(section, "min_count")
+ncores = config.getint(section, "ncores")
 
-print(sys.argv[0], "density:", density, "fanout:", fanout,
-      "search_depth", search_depth, "min_count", min_count,
-      "ncores:", ncores)
+print(
+    sys.argv[0],
+    "density:",
+    density,
+    "fanout:",
+    fanout,
+    "search_depth",
+    search_depth,
+    "min_count",
+    min_count,
+    "ncores:",
+    ncores,
+)
 
 # Run the command
-argv = ["audfprint", "match",
-        "-d", os.path.join(dir4db, "data.fpdb"),
-        "--density", str(density),
-        "--fanout", str(fanout),
-        "--search-depth", str(search_depth),
-        "--min-count", str(min_count),
-        "--ncores", str(ncores),
-        "--verbose", 0,
-        "--opfile", resultFile,
-        "--list", fileList4query]
+argv = [
+    "audfprint",
+    "match",
+    "-d",
+    os.path.join(dir4db, "data.fpdb"),
+    "--density",
+    str(density),
+    "--fanout",
+    str(fanout),
+    "--search-depth",
+    str(search_depth),
+    "--min-count",
+    str(min_count),
+    "--ncores",
+    str(ncores),
+    "--verbose",
+    0,
+    "--opfile",
+    resultFile,
+    "--list",
+    fileList4query,
+]
 
 # Run audfprint
 audfprint.main(argv)

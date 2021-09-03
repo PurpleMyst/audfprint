@@ -9,7 +9,7 @@ with open("requirements.txt") as requirements_txt:
 
 setuptools.setup(
     name="audfprint",
-    version="1.0.1",
+    version="2.0.0",
     packages=["audfprint"],
     install_requires=install_requires,
 )

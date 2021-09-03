@@ -25,7 +25,7 @@ from __future__ import print_function
 import os
 import sys
 
-import audfprint
+from . import audfprint
 
 try:
     # noinspection PyCompatibility
@@ -49,39 +49,54 @@ else:
         dir4db = sys.argv[2]
 
 # Default params
-defaults = {'density': "70",
-            'fanout': "8",
-            'bucketsize': "500",
-            'ncores': "8"}
+defaults = {"density": "70", "fanout": "8", "bucketsize": "500", "ncores": "8"}
 
 # Parse input file
 config = ConfigParser(defaults)
-section = 'dpwe_builder'
+section = "dpwe_builder"
 config.add_section(section)
 
 if config_file:
     if len(config.read(config_file)) == 0:
         raise IOError(errno.ENOENT, "Cannot read config file", config_file)
 
-density = config.getint(section, 'density')
-fanout = config.getint(section, 'fanout')
-bucketsize = config.getint(section, 'bucketsize')
-ncores = config.getint(section, 'ncores')
+density = config.getint(section, "density")
+fanout = config.getint(section, "fanout")
+bucketsize = config.getint(section, "bucketsize")
+ncores = config.getint(section, "ncores")
 
-print(sys.argv[0], "density:", density, "fanout:", fanout,
-      "bucketsize:", bucketsize, "ncores:", ncores)
+print(
+    sys.argv[0],
+    "density:",
+    density,
+    "fanout:",
+    fanout,
+    "bucketsize:",
+    bucketsize,
+    "ncores:",
+    ncores,
+)
 
 # Ensure the database directory exists
 audfprint.ensure_dir(dir4db)
 
 # Run the command
-argv = ["audfprint", "new",
-        "-d", os.path.join(dir4db, "data.fpdb"),
-        "--density", str(density),
-        "--fanout", str(fanout),
-        "--bucketsize", str(bucketsize),
-        "--ncores", str(ncores),
-        "--list", fileList4db]
+argv = [
+    "audfprint",
+    "new",
+    "-d",
+    os.path.join(dir4db, "data.fpdb"),
+    "--density",
+    str(density),
+    "--fanout",
+    str(fanout),
+    "--bucketsize",
+    str(bucketsize),
+    "--ncores",
+    str(ncores),
+    "--list",
+    fileList4db,
+]
 
 # Run audfprint
 audfprint.main(argv)
